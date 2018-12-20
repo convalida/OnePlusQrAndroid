@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/mainVerticalLayout"
+    tools:context="com.convalida.user.jsonparsing.OnClickRestaurant">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarClick"
+        app:titleTextColor="#fff"
+        app:subtitleTextColor="#fff"
+        app:titleTextAppearance="@style/ToolbarTitle"
+        app:subtitleTextAppearance="@style/ToolbarSubtitle"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/MyTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        >
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
+
+                <TextView
+                    android:id="@+id/restName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:textColor="#453434"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/openText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="2dp"
+                    android:textSize="14sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/callBtn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="34dp"
+                        android:background="@drawable/phone_edited" />
+
+                    <ImageButton
+                        android:id="@+id/mapBtn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/restName"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="34dp"
+                        android:background="@drawable/map_edited" />
+
+                    <ImageButton
+                        android:id="@+id/menuBtn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/restName"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="34dp"
+                        android:background="@drawable/menu_edited"
+                        android:text="Menu" />
+
+                    <ImageButton
+                        android:id="@+id/timingBtn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@id/restName"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="34dp"
+                        android:background="@drawable/clock_edited" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/callText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="9dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Call"
+                        android:textColor="#000" />
+
+
+                    <TextView
+                        android:id="@+id/locateText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="38dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Find us"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/menuText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="29dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Menu"
+
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Timings"
+                        android:textColor="#000" />
+
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/orderBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="40dp"
+                    android:background="#82bd02"
+                    android:text="Order now"
+                    android:textColor="#fff" />
+
+            </LinearLayout>
+
+
+            <TableLayout
+                android:id="@+id/rewardTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0,1">
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
+
+
+
+
+

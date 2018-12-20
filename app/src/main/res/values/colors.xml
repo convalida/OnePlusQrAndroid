@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3484f2</color>
+    <color name="colorPrimaryDark">#0163c3</color>
+    <color name="colorAccent">#1e90ff</color>
+    <color name="colorTextPrimary">#fff</color>
+    <color name="windowBackground">#fff</color>
+    <color name="navigationBarColor">#000</color>
+    <color name="QRCodeBlackColor">#000</color>
+    <color name="QRCodeWhiteColor">#fff</color>
+
+</resources>

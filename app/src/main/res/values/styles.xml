@@ -1,0 +1,66 @@
+    <resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorTextPrimary</item>
+    </style>
+    
+<style name="ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+    <item name="android:textSize">19sp</item>
+</style>
+    <style name="ToolbarSubtitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+    </style>
+    
+    <style name="AppTheme.NoActionBar">
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+</style>
+
+    <style name="MyDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="windowNoTitle">true</item>
+    </style>
+<style name="RangeDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="windowNoTitle">true</item>
+</style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="expandedappbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="collapsedappbar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+
+    <style name="MyTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/colorTextPrimary</item>
+    </style>
+    <style name="MyMaterialTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MyMaterialTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+
+    </style>
+
+
+</resources>

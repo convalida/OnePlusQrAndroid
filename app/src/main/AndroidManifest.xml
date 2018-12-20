@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.convalida.user.jsonparsing">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:name=".GlobalClass"
+        android:allowBackup="true"
+        android:icon="@drawable/one"
+        android:label="OnePlusRewards"
+        android:largeHeap="true"
+        android:theme="@style/MyMaterialTheme">
+        <provider
+            android:name=".MySuggestionProvider"
+            android:authorities="com.convalida.user.jsonparsing.MySuggestionProvider" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDNX57iWNiLUqrVt8w4aClrPGO2qqwNnTE" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OnClickRestaurant"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WeekTiming"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialog" />
+        <activity
+            android:name=".SplashScreen"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Register"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SelectRange"
+            android:screenOrientation="portrait"
+            android:theme="@style/RangeDialog" />
+        <activity
+            android:name=".EditProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LocationPermission"
+            android:screenOrientation="portrait" />
+        <activity android:name=".QRCode" />
+        <activity android:name=".CameraPermission" />
+        <activity android:name=".ScannerActivity"></activity>
+    </application>
+
+</manifest>
