@@ -8,6 +8,10 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -33,7 +37,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
 
     ZXingScannerView zXingScannerView;
     public static final String TAG="ScannerActivity";
-    String businessId, points;
+    String businessId, points,loginPin,key;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,19 +66,9 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         String[] ptsBsnid=scannedResult.split("/");
         businessId=ptsBsnid[0];
         points=ptsBsnid[1];
+        loginPin=ptsBsnid[2];
+        key=ptsBsnid[3];
         new GetUserId().execute();
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setMessage("You have earned "+points+" points");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent inte=new Intent(ScannerActivity.this,MainActivity.class);
-                startActivity(inte);
-            }
-        });
-        AlertDialog alertDialog=builder.create();
-        alertDialog.setCancelable(false);
-        alertDialog.show();
 
       //  zXingScannerView.resumeCameraPreview(this);**/
 
@@ -92,6 +86,20 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                     String result = jsonObject.getString("result");
                     if (result.equals(String.valueOf(1))) {
                         Log.e(TAG, "Points added");
+                        customAlert(points);
+                      /**  AlertDialog.Builder builder=new AlertDialog.Builder(ScannerActivity.this);
+                        builder.setMessage("You have earned "+points+" points");
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent inte=new Intent(ScannerActivity.this,MainActivity.class);
+                                startActivity(inte);
+                            }
+                        });
+                        AlertDialog alertDialog=builder.create();
+                        alertDialog.setCancelable(false);
+                        alertDialog.show();**/
+
                     } else {
                         Log.e(TAG, "Some error in result value");
                     }
@@ -112,6 +120,8 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
                 parameters.put("MID",userId);
                 parameters.put("rewards",points);
                 parameters.put("businessId",businessId);
+                parameters.put("loginpin",loginPin);
+                parameters.put("Key",key);
                 Log.e(TAG,"Parameters are "+parameters.toString());
                 return parameters;
             }
@@ -119,6 +129,31 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         RequestQueue rQueue = Volley.newRequestQueue(ScannerActivity.this);
         rQueue.add(request);
 
+    }
+
+    public void customAlert(String points) {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        LayoutInflater inflater=getLayoutInflater();
+        View dialogLayout=inflater.inflate(R.layout.points_dialog,null);
+        Button btn=dialogLayout.findViewById(R.id.okBtn);
+        TextView pointsText=dialogLayout.findViewById(R.id.pointsText);
+        TextView point=dialogLayout.findViewById(R.id.points);
+        pointsText.setText(points);
+        int pointsValue=Integer.parseInt(points);
+        if(pointsValue==1){
+           point.setText("Point");
+        }
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ScannerActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+       // builder.setPositiveButton("Ok",null);
+        builder.setView(dialogLayout);
+        builder.setCancelable(false);
+        builder.show();
     }
 
     public void onBackPressed(){

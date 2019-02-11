@@ -86,8 +86,8 @@ private Toolbar toolbar;
         etmobileNum= (EditText) findViewById(R.id.mobileInput);
         etEmail= (EditText) findViewById(R.id.emailInput);
         updateInfoBtn= (Button) findViewById(R.id.editBtn);
-        qrCode= (Button) findViewById(R.id.qrBtn);
-        scanQr= (Button) findViewById(R.id.qrScanBtn);
+      //  qrCode= (Button) findViewById(R.id.qrBtn);
+       // scanQr= (Button) findViewById(R.id.qrScanBtn);
         etfname.requestFocus();
 
          SharedPreferences data=getApplicationContext().getSharedPreferences("saveNumber",MODE_PRIVATE);
@@ -116,17 +116,17 @@ private Toolbar toolbar;
                 editInfo();
             }
         });
-        qrCode.setOnClickListener(new View.OnClickListener() {
+      /**  qrCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 generateQR();
             }
-        });
+        });**/
         progressDialog=new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
 
-        scannerView=new ZXingScannerView(this);
+   //     scannerView=new ZXingScannerView(this);
 
       /**  StringRequest request=new StringRequest(Request.Method.POST, editProfileUrl, new Response.Listener<String>() {
             @Override
@@ -233,10 +233,10 @@ private Toolbar toolbar;
         startActivity(intent);
     }
 
-    public void scanCode(View v){
-        checkCameraPermission();
+   // public void scanCode(View v){
+     //   checkCameraPermission();
 
-    }
+    //}
 
    /** public void onPause(){
         super.onPause();

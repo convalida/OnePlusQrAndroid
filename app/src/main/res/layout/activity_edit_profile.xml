@@ -129,30 +129,7 @@
         android:textColor="#fff"
         android:background="@color/colorPrimary"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
-                android:id="@+id/qrBtn"
-                android:text="Get Qr code"
-                android:textColor="#fff"
-                android:background="@color/colorPrimary"/>
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
-                android:onClick="scanCode"
-                android:id="@+id/qrScanBtn"
-                android:text="Scan Qr code"
-                android:textColor="#fff"
-                android:background="@color/colorPrimary"/>
 </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     static String DISTANCE = "Distance";
     private static final int REQUEST_APP_SEETINGS=168;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private static final int MY_PERMISSION_CAMERA=98;
     TextView userName, userMail, userLName;
     String uName, uMail;
     //   final GlobalClass globalVariable;
@@ -604,6 +605,13 @@ if(position==0){
                 startActivity(logoutIntent);
                  Toast.makeText(getApplicationContext(),"User successfully logged out",Toast.LENGTH_LONG).show();
                 break;
+
+            case R.id.scanQRCode:
+             //   Intent intent2=new Intent(MainActivity.this,ScanQRActivity.class);
+               // startActivity(intent2);
+                checkQRpermission();
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -616,6 +624,23 @@ if(position==0){
         }**/
         return super.onOptionsItemSelected(item);
     }
+
+    private boolean checkQRpermission() {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
+            }
+            return false;
+        }
+        else{
+            Intent intent=new Intent(MainActivity.this,ScannerActivity.class);
+            startActivity(intent);
+            return true;
+        }
+    }
+
     ViewPagerAdapter adapter;
     private void setupViewPager(ViewPager viewPager) {
          adapter=new ViewPagerAdapter(getSupportFragmentManager());
