@@ -13,8 +13,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private static final int REQUEST_APP_SEETINGS=168;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final int MY_PERMISSION_CAMERA=98;
+    private static final int REQUEST_CODE_ASK_PERMISSIONS=23;
+    private static final int CAMERA_PERMISSION_REQUEST_CODE=1000;
     TextView userName, userMail, userLName;
     String uName, uMail;
     //   final GlobalClass globalVariable;
@@ -348,6 +352,7 @@ if(position==0){
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
@@ -435,9 +440,40 @@ if(position==0){
                        // startActivity(getIntent());
                     //}
                 }
+            case MY_PERMISSION_CAMERA:
+                if(MY_PERMISSION_CAMERA==requestCode){
+                  /**  if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                        Toast.makeText(getApplicationContext(),"Camera permission granted successfully",Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        PermissionUtils.setShouldShowStatus(this,Manifest.permission.CAMERA);
+                    }**/
+                  for(int i=0,len=permissions.length;i<len;i++){
+                      String permission=permissions[i];
+                      if(grantResults[i]==PackageManager.PERMISSION_DENIED){
+                          boolean showRationale=shouldShowRequestPermissionRationale(permission);
+                          if(!showRationale){
+                              displayNeverAskDialog();
+                          }
+                         // else if(Manifest.permission.CAMERA)
+                      }
+                      else{
+                          Intent intent=new Intent(MainActivity.this,ScannerActivity.class);
+                          startActivity(intent);
+                      }
+                  }
+                }
 
                // return;
             }
+        }
+
+        protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode==3){
+            Intent intent=new Intent(MainActivity.this,ScannerActivity.class);
+            startActivity(intent);
+        }
         }
 
  //   }
@@ -578,6 +614,7 @@ if(position==0){
     }**/
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public boolean onOptionsItemSelected(MenuItem item){
 
        // super.onCreateOptionsMenu((Menu) item);
@@ -607,9 +644,7 @@ if(position==0){
                 break;
 
             case R.id.scanQRCode:
-             //   Intent intent2=new Intent(MainActivity.this,ScanQRActivity.class);
-               // startActivity(intent2);
-                checkQRpermission();
+                checkForCameraPermission();
 
 
             default:
@@ -625,21 +660,60 @@ if(position==0){
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean checkQRpermission() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
+    private boolean checkForCameraPermission() {
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)!=PackageManager.PERMISSION_GRANTED){
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
                 ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
+
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
             }
-            return false;
+       /**     if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+              /**  if(PermissionUtils.neverAskAgainSelected(this,Manifest.permission.CAMERA)){
+                    displayNeverAskDialog();
+                }
+                else{
+                    ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION_REQUEST_CODE);
+                }**/
+
+             /**   if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_DENIED) {
+                    boolean showRationale=shouldShowRequestPermissionRationale(Manifest.permission.CAMERA);
+                    if (!showRationale) {
+                        displayNeverAskDialog();
+                    }
+                }
+            }**/
+             return false;
         }
-        else{
-            Intent intent=new Intent(MainActivity.this,ScannerActivity.class);
+        else {
+           Intent intent=new Intent(MainActivity.this,ScannerActivity.class);
             startActivity(intent);
             return true;
         }
     }
+
+    private void displayNeverAskDialog() {
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setMessage("We need permission to access your camera to scan the QR code. Please permit the permission through " +
+                                "Settings screen.\n\nSelect Permissions -> Enable permission");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Permit manually", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+           dialogInterface.dismiss();
+           Intent intent=new Intent();
+           intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                Uri uri=Uri.fromParts("package",getPackageName(),null);
+                intent.setData(uri);
+              //  startActivity(intent);
+                startActivityForResult(intent,3);
+            }
+        });
+        builder.setNegativeButton("Cancel",null);
+        builder.show();
+    }
+
+
 
     ViewPagerAdapter adapter;
     private void setupViewPager(ViewPager viewPager) {
