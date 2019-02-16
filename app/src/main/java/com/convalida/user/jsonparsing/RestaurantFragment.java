@@ -801,16 +801,16 @@ public void onPause(){
         Location loc2=new Location("point B");
       //  loc2.setLatitude(32.500000);//Kathleen, GA 31047
       //  loc2.setLongitude(-83.600000);
-        loc2.setLatitude(28.518153);//iOS Test
-        loc2.setLongitude(76.20569);
+  //      loc2.setLatitude(28.518153);//iOS Test
+  //      loc2.setLongitude(76.20569);
       //  loc2.setLatitude(33.08228);
        // loc2.setLongitude(-83.227685);
        // loc2.setLatitude(40.741895);
       //  loc2.setLongitude(-73.989308);// malviya nagar metro station
        //   loc2.setLatitude(33.000000);
         // loc2.setLongitude(-83.200000);
-        // loc2.setLatitude(MainActivity.curLatitude);
-         //loc2.setLongitude(MainActivity.curLongitude);
+         loc2.setLatitude(MainActivity.currLatitude);
+         loc2.setLongitude(MainActivity.currLongitude);
         //loc2.setLatitude(currLatitude);
         //loc2.setLongitude(currLongitude);
         final GlobalClass globalVariable= (GlobalClass) context.getApplicationContext();
