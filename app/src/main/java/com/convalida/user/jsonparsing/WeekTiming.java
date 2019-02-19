@@ -109,34 +109,6 @@ public class WeekTiming extends AppCompatActivity {
         catch (JSONException e){
             e.printStackTrace();
         }
-//        alertText.setText(timings);
-       // AlertDialog.Builder builder;
-        //if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-          //  builder=new AlertDialog.Builder(WeekTiming.this,android.R.style.Theme_Material_Dialog_Alert);
-            //   builder=new AlertDialog.Builder(OnClickRestaurant.this);
-       // }
-        //else {
-          //  builder=new AlertDialog.Builder(WeekTiming.this);
-        //}
-        //builder.setTitle("Timings");
-//                builder.create().getWindow().setLayout(50,50);
-
-        //  Dialog dialog=builder.setView(new View(OnClickRestaurant.this)).create();
-        //WindowManager.LayoutParams layoutParams=new WindowManager.LayoutParams();
-        //layoutParams.copyFrom(dialog.getWindow().getAttributes());
-        //layoutParams.width=WindowManager.LayoutParams.WRAP_CONTENT;
-        //layoutParams.width=WindowManager.LayoutParams.WRAP_CONTENT;
-        //dialog.show();
-        //dialog.getWindow().setAttributes(layoutParams);
-        //  builder.setMessage(array1.get(position));
-        //builder.setMessage(timings+"")
-          //      .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-            //        @Override
-              //      public void onClick(DialogInterface dialog, int which) {
-
-                //    }
-                //})
-                //.show();
 
     }
 }

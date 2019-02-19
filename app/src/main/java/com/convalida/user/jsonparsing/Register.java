@@ -150,32 +150,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
-   /**     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, loginurl, null, new Response.Listener<JSONObject>() {
 
-
-            @Override
-            public void onResponse(JSONObject response) {
-
-                try {
-                    Log.e(TAG,"Inside onResponse");
-                    jsonObject = response.getJSONObject("");
-                    testing.setText("Hello: "+response.getString("FirstName"));
-                    progressDialog.dismiss();
-                } catch (JSONException e) {
-                  //  e.printStackTrace();
-                    //Toast.makeText(getApplicationContext(), "Error! Try again", Toast.LENGTH_LONG).show();
-                    //progressDialog.dismiss();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("tag", "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(), "Error while loading...", Toast.LENGTH_LONG).show();
-                progressDialog.dismiss();
-            }
-        });
-        AppController.getInstance(this).addToRequestQueue(jsonObjectRequest);**/
     }
     boolean doubleBackToExitPressedOnce=false;
 

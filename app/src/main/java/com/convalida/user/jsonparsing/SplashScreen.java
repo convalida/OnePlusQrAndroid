@@ -35,19 +35,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(i);
                 }
 
-              /**  SharedPreferences data=getApplicationContext().getSharedPreferences("saveNumber",MODE_PRIVATE);
-                str=data.getString("Number","");
-                Log.e(TAG,"Contact no. is "+str);
-                if(str.equals("")){
-                Intent i=new Intent(SplashScreen.this,Login.class);
-                startActivity(i);
-            }
-                else{
-                    Intent i=new Intent(SplashScreen.this,MainActivity.class);
-                    startActivity(i);
-                }**/
-             //   Intent intent=new Intent(SplashScreen.this,Login.class);
-               // startActivity(intent);
+
                 finish();
             }
         },SPLASH_TIME_OUT);

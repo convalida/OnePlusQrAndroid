@@ -156,9 +156,43 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             mainArrayList = new ArrayList<>();
             // globalVariable= (GlobalClass)getBaseContext();
             checkLocationPermission();
+            try {
+                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                String locationProvider=LocationManager.NETWORK_PROVIDER;
+                assert locationManager != null;
+                  Location lastLocation = locationManager.getLastKnownLocation(locationProvider);
+                    onLocationChanged(lastLocation);
+
+            }
+            catch (SecurityException e){
+                e.printStackTrace();
+            }
+          /**  if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+
+                } else {
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+                }
+            }
             locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
+
+            String locationProvider=LocationManager.NETWORK_PROVIDER;
+            assert locationManager != null;
+            if(locationManager.getLastKnownLocation(locationProvider)!=null) {
+                Location lastLocation = locationManager.getLastKnownLocation(locationProvider);
+                onLocationChanged(lastLocation);
+            }
+            else{
+                Toast.makeText(getApplicationContext(),"Last known location is null",Toast.LENGTH_LONG).show();
+            }**/
+
+
+
             // locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
-             List<String> providers = locationManager.getProviders(true);
+            /**List<String> providers = locationManager.getProviders(true);
              Location bestLocation = null;
              for (String provider : providers) {
              Location l = locationManager.getLastKnownLocation(provider);
@@ -171,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
              }
              if (bestLocation != null) {
              onLocationChanged(bestLocation);
-             }
+             }**/
 
             /**  locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -325,13 +359,29 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                         if (grantResults[i] == PackageManager.PERMISSION_DENIED) {
                             boolean showRationale = shouldShowRequestPermissionRationale(permission);
                             if (!showRationale) {
-                                displayNeverAskDialog();
+                            //    displayNeverAskDialog();
+                                Intent intent=new Intent(MainActivity.this,CameraPermission.class);
+                                startActivity(intent);
                             }
                         } else {
                             Intent intent = new Intent(MainActivity.this, ScannerActivity.class);
                             startActivity(intent);
                         }
                     }
+                  /**  istyleyourf(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED){
+                            //   finish();
+                            //  startActivity(getIntent());
+                            //  launchScanner();
+                            Intent intent=new Intent(EditProfile.this, ScannerActivity.class );
+                            startActivity(intent);
+
+                        }
+                    }
+                    else{
+                        Intent intent = new Intent(EditProfile.this,CameraPermission.class);
+                        startActivity(intent);
+                    }**/
                 }
 
         }
@@ -408,9 +458,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     protected void onResume() {
         super.onResume();
-        // if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
-        //   locationManager.requestLocationUpdates(provider,400,1,this);
-        //}
+
         checkPlayServices();
 
 
@@ -424,12 +472,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
          locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 50000, 10, this);
 
     }
- /**   protected void onPause(){
-        super.onPause();
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED){
-            locationManager.removeUpdates(this);
-        }
-    }**/
+
 
   /**  protected synchronized void buildGoogleApiClient(){
         mGoogleApiClient=new GoogleApiClient.Builder(this)

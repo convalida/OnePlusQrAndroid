@@ -25,7 +25,7 @@
         completions."
     </string>
     <string name="ok_string">OK</string>
-    <string name="camera_access_text">To gain reward points, please enable your camera permission to start scanning QR code</string>
+    <string name="camera_access_text">Please enable your camera permission to scan QR code to redeem your points and gain rewards.</string>
     <string name="camera_access_heading">Camera Access</string>
     <string name="enable_camera_button">Enable camera</string>
 </resources>

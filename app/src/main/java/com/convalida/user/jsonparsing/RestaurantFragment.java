@@ -286,18 +286,7 @@ public void onPause(){
 
             searchView.setOnQueryTextListener(this);
 
-        /**    MenuItemCompat.setOnActionExpandListener(item, new MenuItemCompat.OnActionExpandListener() {
-        @Override public boolean onMenuItemActionExpand(MenuItem item) {
 
-        return true;
-        }
-
-        @Override public boolean onMenuItemActionCollapse(MenuItem item) {
-        adapterRest.setmFilter(rangeRestArrayList);
-        return true;
-        }
-        });**/
-   // }
 
     }
 
@@ -734,63 +723,6 @@ public void onPause(){
  //   GetDataRestuarant getDataRestuarant=new GetDataRestuarant();
     private boolean isFragmentLoaded=false;
 
- /**   public void setUserVisibleHint(boolean isVisibleToUser){
-        super.setUserVisibleHint(isVisibleToUser);
-        Log.e(TAG,"Arraylist inside visible hint "+restaurantList);
-        //GetDataRestuarant getData=new GetDataRestuarant();
-
-      // Log.e(TAG,"BusinessList outside inner class is "+RestaurantFragment.bussList);
-       // isUserActiveRestaurtant=isVisibleToUser;
-   /**     if(isVisibleToUser && isResumed()){
-
-            new GetDataRestuarant().execute();
-          //  Toast.makeText(context,"Sorry, no restaurants within this range",Toast.LENGTH_SHORT).show();
-        }**/
-  /** if(getView()!=null){
-      isViewShown=true;
-      // new GetDataRestuarant().execute();
-       if(isVisibleToUser && restaurantList.isEmpty()){
-           //   if(businessList.isEmpty()){
-           Toast.makeText(context,"Sorry, no restaurants within this range",Toast.LENGTH_SHORT).show();
-           Log.e(TAG,"Arraylist inside isvisibletouser "+restaurantList);
-         //   isFragmentLoaded=true;
-          // Log.e(TAG,"Sorry no rest found");
-       //     Intent intent=new Intent(context,EmptyResults.class);
-         //   startActivity(intent);
-           //   if(restaurantList.isEmpty()) {
-       //    Log.e(TAG, "Sorry, no restaurants within this range");
-           // Log.e(TAG,"Checking arraylist is empty or not "+restaurantList.size());
-           // }// }
-
-
-
-       }
-
-   }
-   else {
-       isViewShown=false;
-
-   }
-
-    }**/
-    //RestaurantFragment fragment= (RestaurantFragment) this.getFragmentManager().findFragmentByTag("Restaurants");
-    //if()
-
-    //Fragment page=ViewPager.getCur
-   /**public void onHiddenChanged(boolean hidden){
-       super.onHiddenChanged(hidden);
-       if(hidden){
-
-       }
-       else {
-           if(businessList.size()==0){
-               Toast.makeText(context,"No restaurants",Toast.LENGTH_SHORT).show();
-           }
-
-       }
-   }**/
-
-    // }
     private static String distance(String lati,String longi){
         Log.e(TAG,"Inside distance method");
         double lat=Double.parseDouble(lati);
@@ -837,63 +769,8 @@ public void onPause(){
         Log.e(TAG,"Integer type distance "+distanceInt);
         return distString;
     }
-/**private String distance(String lati, String longi){
- Log.e(TAG,"Inside distance method");
- double lat=Double.parseDouble(lati);
- double lon=Double.parseDouble(longi);
- double theta=lon-currLongitude;
- double kmdist=Math.sin(deg2Rad(lat))*Math.sin(deg2Rad(currLatitude))
- +Math.cos(Math.cos(deg2Rad(lat))*Math.cos(deg2Rad(currLatitude)))*Math.cos(deg2Rad(theta));
- kmdist=Math.acos(kmdist);
- kmdist=rad2Deg(kmdist);
- kmdist=kmdist*60*1.1515;
- mileDist=kmdist*0.621371;
- double roundoff=Math.round(mileDist*100.0)/100.0;
- Log.e(TAG,"Distance is "+mileDist);
- distanceInt=(int)mileDist;
- distString=Double.toString(roundoff);
- return distString;
 
- }
 
- private double rad2Deg(double rad) {
- return (rad*180.0/Math.PI);
- }
-
- private double deg2Rad(double deg) {
- return (deg*Math.PI/180.0);
- }**/
-
-    /**    private String distance(String lati, String longi) {
-     Log.e(TAG,"Inside distance method");
-     double lat=Double.parseDouble(lati);
-     double lon=Double.parseDouble(longi);
-     LatLng latLngA=new LatLng(lat,lon);
-     LatLng latLngB=new LatLng(MainActivity.curLatitude,MainActivity.curLongitude);
-     // LatLng latLngB=new LatLng(currLatitude,currLongitude);
-     Location locationA=new Location("point A");
-     locationA.setLatitude(latLngA.latitude);
-     locationA.setLongitude(latLngA.longitude);
-     // locationA.setLatitude(lat);
-     // locationA.setLongitude(lon);
-     Location locationB=new Location("point B");
-     locationB.setLatitude(latLngB.latitude);
-     locationB.setLatitude(latLngB.longitude);
-     //locationB.setLatitude(MainActivity.curLatitude);
-     //locationB.setLongitude(MainActivity.curLongitude);
-     dist=locationA.distanceTo(locationB);
-     kmdist=dist/1000;
-     mileDist=dist*0.000621371;
-     double roundoff=Math.round(mileDist*100.0)/100.0;
-     Log.e(TAG,"Distance is "+mileDist);
-     distanceInt=(int)mileDist;
-     distString=Double.toString(roundoff);
-     // distString=Double.toString(mileDist);
-     //   distanceInt=Integer.parseInt(distString);
-     Log.e(TAG,"Integer type distance "+distanceInt);
-     return distString;
-
-     }**/
 
     public void sort() {
         Collections.sort(restaurantList, new Comparator<HashMap<String,String>>() {

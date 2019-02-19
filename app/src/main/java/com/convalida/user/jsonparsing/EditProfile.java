@@ -52,7 +52,7 @@ import java.util.Scanner;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class EditProfile extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class EditProfile extends AppCompatActivity {
 private Toolbar toolbar;
     private EditText etfname,etlname,etmobileNum,etEmail;
     private TextInputLayout inputfname,inputlname,inputmobile,inputemail;
@@ -128,27 +128,6 @@ private Toolbar toolbar;
 
    //     scannerView=new ZXingScannerView(this);
 
-      /**  StringRequest request=new StringRequest(Request.Method.POST, editProfileUrl, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray jsonArray = new JSONArray(response);
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
-                    String email = jsonObject.getString("EmailID");
-                    String emailValue = String.valueOf(email);
-                    etEmail.setText(emailValue);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-        RequestQueue requestQueue= Volley.newRequestQueue(EditProfile.this);
-        requestQueue.add(request);**/
         Bitmap bitmap= BitmapFactory.decodeResource(getResources(),R.drawable.oneplusrewards7);
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
             @Override
@@ -160,88 +139,6 @@ private Toolbar toolbar;
 
     }
 
-    private boolean checkCameraPermission() {
-      //  Intent intent = new Intent(EditProfile.this,CameraPermission.class);
-        //startActivity(intent);
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                ActivityCompat.requestPermissions(EditProfile.this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
-            }
-            return false;
-        }
-        else{
-            Intent intent=new Intent(EditProfile.this,ScannerActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-      //      ActivityCompat.requestPermissions(EditProfile.this,new String[]{Manifest.permission.CAMERA},requestC)
-      /**  Intent in=new Intent();
-        in.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri=Uri.fromParts("package",getPackageName(),null);
-        in.setData(uri);
-        startActivityForResult(in,4);
-        }
-        else {
-            return true;
-        }
-        return false;**/
-    }
-
-   /** public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode==4){
-            Intent intent=getIntent();
-            startActivity(intent);
-        }
-    }**/
-
-   public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults){
-       switch (requestCode){
-           case MY_PERMISSION_CAMERA:{
-
-               if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                   if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED){
-                    //   finish();
-                     //  startActivity(getIntent());
-                     //  launchScanner();
-                       Intent intent=new Intent(EditProfile.this, ScannerActivity.class );
-                       startActivity(intent);
-
-                   }
-               }
-               else{
-                   Intent intent = new Intent(EditProfile.this,CameraPermission.class);
-                   startActivity(intent);
-               }
-           }
-       }
-
-   }
-
-  /**  public void launchScanner() {
-        setContentView(scannerView);
-        scannerView.setResultHandler(this);
-        scannerView.startCamera();
-    }**/
-
-    private void generateQR() {
-
-        Intent intent=new Intent(EditProfile.this,QRCode.class);
-        intent.putExtra("qrCode",etmobileNum.getText().toString());
-        startActivity(intent);
-    }
-
-   // public void scanCode(View v){
-     //   checkCameraPermission();
-
-    //}
-
-   /** public void onPause(){
-        super.onPause();
-        scannerView.stopCamera();
-    }**/
 
     private void editInfo() {
         String str;
@@ -364,7 +261,7 @@ private Toolbar toolbar;
         }
     }
 
-    @Override
+  /**  @Override
     public void handleResult(Result result) {
         Log.e(TAG,result.getText());
         Log.e(TAG, result.getBarcodeFormat().toString());
@@ -372,7 +269,7 @@ private Toolbar toolbar;
         builder.setMessage(result.getText());
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
-    }
+    }**/
 
     private class MyTextWatcher implements TextWatcher {
         private View view;
