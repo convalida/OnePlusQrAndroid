@@ -3,15 +3,19 @@ package com.convalida.user.jsonparsing;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -161,7 +165,26 @@ public class RestaurantFragment extends Fragment implements SearchView.OnQueryTe
  //       new PointsTask().execute();
   //      if(getUserVisibleHint()) {
       //  if(!isViewShown) {
+      /**  if(!isNetworkAvailable()){
+            new AlertDialog.Builder(context)
+                    .setTitle("Internet connection is required")
+                    .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = getActivity().getIntent();
+                            //  finish();
+                            startActivity(intent);
+                            // finish();
+                        }
+                    })
+                    .setCancelable(false)
+                    .create()
+                    .show();
+
+        }
+        else {**/
             new GetDataRestuarant().execute();
+       // }
           //  checkForFirstFragment();
         //}
     //    }
@@ -251,6 +274,13 @@ public void onPause(){
         Log.e(TAG,"onPause of RestaurantFragment called");
 }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
@@ -258,7 +288,7 @@ public void onPause(){
      //   if (restaurantList.size()!=0){
         Log.e(TAG,"ArrayList size is "+restaurantList.size());
         MenuItem item = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        SearchView searchView = (SearchView) item.getActionView();
         //   MaterialSearchView searchView= (MaterialSearchView) view.findViewById(R.id.searchView);
         //  searchView.setMenuItem(item);
         searchView.setQueryHint(getResources().getString(R.string.search_here));
@@ -301,7 +331,33 @@ public void onPause(){
         final ArrayList<HashMap<String, String>> filteredList=filter(restaurantList,newText);
 //        adapterRest.setmFilter(filteredList);
         dataAdapter.setmFilter(filteredList);
+        recyclerView.setAdapter(dataAdapter);
+      // Log.e(TAG,filteredList.toString());
         //  adapterRest.getFilter().filter(newText);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                HashMap<String,String> result=new HashMap<String, String>();
+                if(filteredList.size()>0) {
+                    result = filteredList.get(position);
+                    Intent intent = new Intent(context, OnClickRestaurant.class);
+                    intent.putExtra("BusinessID", result.get(MainActivity.ID));
+                    intent.putExtra("BusinessName", result.get(MainActivity.NAME));
+                    intent.putExtra("ContactNo", result.get(MainActivity.CONTACT));
+                    intent.putExtra("Website", result.get(MainActivity.WEBSITE));
+                    intent.putExtra("Timing", result.get(MainActivity.TIMING));
+                    intent.putExtra("Img", result.get(MainActivity.IMAGES));
+                    intent.putExtra("Reward", result.get(MainActivity.REWARDS));
+                    intent.putExtra("Latitude", result.get(MainActivity.LATITUDE));
+                    intent.putExtra("Longitude", result.get(MainActivity.LONGITUDE));
+                    intent.putExtra("MenuLink", result.get(MainActivity.MENU));
+                    intent.putExtra("OrderLink", result.get(MainActivity.ORDER));
+                    //   intent.putExtra("TotalPoint",result.get(MainActivity.POINT));
+                    context.startActivity(intent);
+                }
+            }
+        }));
         return false;
     }
 
@@ -322,30 +378,6 @@ public void onPause(){
         return filteredList;
     }
 
-  /**  @Override
-    public void onLocationChanged(Location location) {
-        currentLatitude=location.getLatitude();
-        currentLongitude=location.getLongitude();
-        Log.e(TAG,"Current latitude is "+currentLatitude);
-        Log.e(TAG,"Current longitude is "+currentLongitude);
-        new GetDataRestuarant().execute();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.e(TAG,"Status");
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        Log.e(TAG,"Enable");
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        Log.e(TAG,"Disable");
-    }
-**/
 
     private class GetDataRestuarant extends AsyncTask<Void, Void, Void> {
         //ArrayList<ArrayList<HashMap<String,String>>> newList=new ArrayList<>();
@@ -731,8 +763,15 @@ public void onPause(){
         loc1.setLatitude(lat);
         loc1.setLongitude(lon);
         Location loc2=new Location("point B");
-      //  loc2.setLatitude(32.500000);//Kathleen, GA 31047
-      //  loc2.setLongitude(-83.600000);
+     //   loc2.setLatitude(32.500000);//Kathleen, GA 31047
+     //   loc2.setLongitude(-83.600000);
+
+      //  loc2.setLatitude(35.0546614);// sitar
+      //  loc2.setLongitude(-85.3093487);
+
+    //    loc2.setLatitude(32.621719);
+    //    loc2.setLongitude(-85.455593);
+
   //      loc2.setLatitude(28.518153);//iOS Test
   //      loc2.setLongitude(76.20569);
       //  loc2.setLatitude(33.08228);
@@ -741,9 +780,11 @@ public void onPause(){
       //  loc2.setLongitude(-73.989308);// malviya nagar metro station
        //   loc2.setLatitude(33.000000);
         // loc2.setLongitude(-83.200000);
+
          loc2.setLatitude(MainActivity.currLatitude);
          loc2.setLongitude(MainActivity.currLongitude);
-        //loc2.setLatitude(currLatitude);
+
+         //loc2.setLatitude(currLatitude);
         //loc2.setLongitude(currLongitude);
         final GlobalClass globalVariable= (GlobalClass) context.getApplicationContext();
         final double latit=globalVariable.getLatitude();

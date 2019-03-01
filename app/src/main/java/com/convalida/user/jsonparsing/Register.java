@@ -81,8 +81,8 @@ public class Register extends AppCompatActivity {
    TextView testing;
     Button signUp;
     private TextInputLayout inputLayoutFirstName, inputLayoutLastdName, inputLayoutMobile, inputLayoutEmail;
-    String loginurl="http://demo.oneplusrewards.com/app/api.asmx/UserDataByPhone?Appid=123456789&CustomerPhone=9675106217";
-    private static final String REGISTRATION_URL="http://demo.oneplusrewards.com/app/api.asmx?op=RegisterUser?Appid=123456789";
+    String loginurl="http://oneplusrewards.com/app/api.asmx/UserDataByPhone?Appid=123456789&CustomerPhone=9675106217";
+    private static final String REGISTRATION_URL="http://oneplusrewards.com/app/api.asmx?op=RegisterUser?Appid=123456789";
     private static final String KEY_FNAME="FirstName";
     private static final String KEY_LNAME="LastName";
     private static final String KEY_EMAIL="Email";
@@ -230,6 +230,11 @@ public class Register extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Please enter your complete contact no.", Toast.LENGTH_LONG).show();
                 return;
             }
+            if(!isValidEmail(etEmail.getText().toString().trim())){
+                inputLayoutEmail.setError("Please enter your valid email id");
+                requestFocus(etEmail);
+                return;
+            }
 
             //  AsyncGetData task=new AsyncGetData();
             //  task.execute();
@@ -371,8 +376,13 @@ public class Register extends AppCompatActivity {
 
     private boolean validateFirstName() {
         String firname=etFirstName.getText().toString().trim();
-        if(firname.isEmpty() || !firname.matches("[a-zA-Z ]+")){
+        if(firname.isEmpty()){
             inputLayoutFirstName.setError("Please enter your first name");
+            requestFocus(etFirstName);
+            return false;
+        }
+        if(!firname.matches("[a-zA-Z ]+")){
+            inputLayoutFirstName.setError("Please enter your valid first name");
             requestFocus(etFirstName);
             return false;
         }
@@ -390,8 +400,13 @@ public class Register extends AppCompatActivity {
 
     private boolean validateLastName(){
         String lasname=etLastName.getText().toString().trim();
-        if(lasname.isEmpty() || !lasname.matches("[a-zA-Z ]+")){
+        if(lasname.isEmpty()){
             inputLayoutLastdName.setError("Please enter your last name");
+            requestFocus(etLastName);
+            return false;
+        }
+        if(!lasname.matches("[a-zA-Z ]+")){
+            inputLayoutLastdName.setError("Please enter your valid last name");
             requestFocus(etLastName);
             return false;
         }
@@ -402,11 +417,16 @@ public class Register extends AppCompatActivity {
     }
     private boolean validateEmail(){
         String emailId=etEmail.getText().toString().trim();
-        if(emailId.isEmpty() || !isValidEmail(emailId)){
-            inputLayoutEmail.setError("Please enter your valid email id");
+        if(emailId.isEmpty()){
+            inputLayoutEmail.setError("Please enter your email id");
             requestFocus(etEmail);
             return false;
         }
+      /**  if(!isValidEmail(emailId)){
+            inputLayoutEmail.setError("Please enter your valid email id");
+            requestFocus(etEmail);
+            return false;
+        }**/
         else{
             inputLayoutEmail.setErrorEnabled(false);
         }
@@ -414,13 +434,19 @@ public class Register extends AppCompatActivity {
     }
 
     private boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+     //   return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private boolean validateMobile(){
         contact=etMobile.getText().toString().trim();
 
-        if(contact.isEmpty() || contact.length()>10 || !contact.matches("[0-9]+")){
+        if(contact.isEmpty()){
+            inputLayoutMobile.setError("Please enter your mobile no.");
+            requestFocus(etMobile);
+            return false;
+        }
+        if(contact.length()>10 || !contact.matches("[0-9]+")){
             inputLayoutMobile.setError("Please enter your valid mobile no.");
             requestFocus(etMobile);
             return false;

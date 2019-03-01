@@ -127,7 +127,7 @@ public class BarFragment extends Fragment implements SearchView.OnQueryTextListe
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater){
         menuInflater.inflate(R.menu.drawer,menu);
         MenuItem item=menu.findItem(R.id.search);
-      SearchView searchView= (SearchView) MenuItemCompat.getActionView(item);
+      SearchView searchView= (SearchView) item.getActionView();
         searchView.setQueryHint(getResources().getString(R.string.search_bar));
         int searchPlateId=android.support.v7.appcompat.R.id.search_plate;
         View searchPlate=searchView.findViewById(searchPlateId);
@@ -174,6 +174,30 @@ public class BarFragment extends Fragment implements SearchView.OnQueryTextListe
         final ArrayList<HashMap<String,String>> filteredList=filter(rangeBarList,newText);
         //adapterBar.setmFilter(filteredList);
         dataAdapter.setmFilter(filteredList);
+        recyclerView.setAdapter(dataAdapter);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                HashMap<String,String> result=new HashMap<String, String>();
+                if(filteredList.size()>0) {
+                    result = filteredList.get(position);
+                    Intent intent = new Intent(context, OnClickRestaurant.class);
+                    intent.putExtra("BusinessID", result.get(MainActivity.ID));
+                    intent.putExtra("BusinessName", result.get(MainActivity.NAME));
+                    intent.putExtra("ContactNo", result.get(MainActivity.CONTACT));
+                    intent.putExtra("Website", result.get(MainActivity.WEBSITE));
+                    intent.putExtra("Timing", result.get(MainActivity.TIMING));
+                    intent.putExtra("Img", result.get(MainActivity.IMAGES));
+                    intent.putExtra("Reward", result.get(MainActivity.REWARDS));
+                    intent.putExtra("Latitude", result.get(MainActivity.LATITUDE));
+                    intent.putExtra("Longitude", result.get(MainActivity.LONGITUDE));
+                    intent.putExtra("MenuLink", result.get(MainActivity.MENU));
+                    intent.putExtra("OrderLink", result.get(MainActivity.ORDER));
+                    //   intent.putExtra("TotalPoint",result.get(MainActivity.POINT));
+                    context.startActivity(intent);
+                }
+            }
+        }));
         return false;
     }
 

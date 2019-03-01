@@ -4,11 +4,14 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Settings;
@@ -93,7 +96,24 @@ private Toolbar toolbar;
          SharedPreferences data=getApplicationContext().getSharedPreferences("saveNumber",MODE_PRIVATE);
          str=data.getString("Number","");
          etmobileNum.setText(str);
-        new GetCustomerDetails().execute();
+         if(!isNetworkAvailable()){
+             new AlertDialog.Builder(EditProfile.this)
+                     .setMessage("Internet connection required")
+                     .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialogInterface, int i) {
+                             Intent intent=getIntent();
+                             startActivity(intent);
+                         }
+                     })
+                     .setCancelable(false)
+                     .create()
+                     .show();
+
+         }
+         else {
+             new GetCustomerDetails().execute();
+         }
 
      //   toolbar= (Toolbar) findViewById(R.id.toolbarEditProfile);
        // setSupportActionBar(toolbar);
@@ -139,67 +159,95 @@ private Toolbar toolbar;
 
     }
 
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent=new Intent(EditProfile.this,MainActivity.class);
+        startActivity(intent);
+    }
 
     private void editInfo() {
         String str;
-        if(!validateFirstName()){
+        if (!validateFirstName()) {
             return;
         }
-        if(!validateLastName()){
+        if (!validateLastName()) {
             return;
         }
-       // if(!validateMobile()){
-         //   return;
+        // if(!validateMobile()){
+        //   return;
         //}
-        if(!validateEmail()){
+        if (!validateEmail()) {
             return;
         }
-        fname=etfname.getText().toString();
-        lname=etlname.getText().toString();
-        email=etEmail.getText().toString();
-      //  mob=etmobileNum.getText().toString();
-       // String urlUpdate="http://demo.oneplusrewards.com/app/api.asmx/EditProfile?CustomerPhone="+etmobileNum.getText().toString();
-        String urlUpdate="http://demo.oneplusrewards.com/app/api.asmx/EditProfile";
+        fname = etfname.getText().toString();
+        lname = etlname.getText().toString();
+        email = etEmail.getText().toString();
 
-        StringRequest request=new StringRequest(Request.Method.POST, urlUpdate, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String result=jsonObject.getString("result");
-                    if(result.equals(String.valueOf(1))){
-                        Toast.makeText(getApplicationContext(),"Customer details updated successfully",Toast.LENGTH_LONG).show();
-                        Intent intent=new Intent(EditProfile.this,MainActivity.class);
-                        startActivity(intent);
+        if (!isNetworkAvailable()) {
+            new AlertDialog.Builder(EditProfile.this)
+                    .setMessage("Internet connection required")
+                    .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent=getIntent();
+                            startActivity(intent);
+                        }
+                    })
+            .setCancelable(false)
+            .create()
+            .show();
+
+        } else {
+            //  mob=etmobileNum.getText().toString();
+            // String urlUpdate="http://demo.oneplusrewards.com/app/api.asmx/EditProfile?CustomerPhone="+etmobileNum.getText().toString();
+            String urlUpdate = "http://demo.oneplusrewards.com/app/api.asmx/EditProfile";
+
+            StringRequest request = new StringRequest(Request.Method.POST, urlUpdate, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+                        String result = jsonObject.getString("result");
+                        if (result.equals(String.valueOf(1))) {
+                            Toast.makeText(getApplicationContext(), "Customer details updated successfully", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(EditProfile.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                        //   else if(result.equals(String.valueOf(0))){
+                        //     Toast.makeText(getApplicationContext(),"No customer with given contact exist",Toast.LENGTH_LONG).show();
+                        //}
+                        else if (result.equals(String.valueOf(2))) {
+                            Toast.makeText(getApplicationContext(), "Invalid app id", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                 //   else if(result.equals(String.valueOf(0))){
-                   //     Toast.makeText(getApplicationContext(),"No customer with given contact exist",Toast.LENGTH_LONG).show();
-                    //}
-                    else if(result.equals(String.valueOf(2))){
-                        Toast.makeText(getApplicationContext(),"Invalid app id",Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(EditProfile.this,"Some error occured",Toast.LENGTH_LONG).show();
-            }
-        }){
-            protected Map<String,String> getParams() throws AuthFailureError{
-                Map<String,String> parameters=new HashMap<>();
-                parameters.put("Appid","123456789");
-                parameters.put("FirstName",etfname.getText().toString());
-                parameters.put("LastName",etlname.getText().toString());
-                parameters.put("CustomerPhone",etmobileNum.getText().toString());
-                parameters.put("EmailID",etEmail.getText().toString());
-                return parameters;
-            }
-        };
-        RequestQueue rQueue=Volley.newRequestQueue(EditProfile.this);
-        rQueue.add(request);
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(EditProfile.this, "Some error occured", Toast.LENGTH_LONG).show();
+                }
+            }) {
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> parameters = new HashMap<>();
+                    parameters.put("Appid", "123456789");
+                    parameters.put("FirstName", etfname.getText().toString());
+                    parameters.put("LastName", etlname.getText().toString());
+                    parameters.put("CustomerPhone", etmobileNum.getText().toString());
+                    parameters.put("EmailID", etEmail.getText().toString());
+                    return parameters;
+                }
+            };
+            RequestQueue rQueue = Volley.newRequestQueue(EditProfile.this);
+            rQueue.add(request);
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager= (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo=connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo!=null;
     }
 
     private boolean validateEmail() {

@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     NavigationView navigationView;
     static int current;
     //SearchAdapter searchAdapter;
-    private static String urlMain = "http://demo.oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
+
     //  private static String urlMain="http://localhost:10945/App/Api.asmx/GetBusinessData?Appid=123456789";
     private static final String TAG = "MainActivity";
     //   static ListViewAdapter listViewAdapter;
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if (!isNetworkAvailable()) {
 
             new AlertDialog.Builder(this)
-                    .setTitle("Internet connection is required")
+                    .setMessage("Internet connection is required")
                     .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -469,7 +469,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     // if(checkLocationPermission()) {
       //  checkLocationPermission();
-         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 50000, 10, this);
+        if(locationManager!=null) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 50000, 10, this);
+        }
 
     }
 
@@ -484,7 +486,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 protected void onPause(){
     super.onPause();
-    locationManager.removeUpdates(this);
+    if(locationManager!=null) {
+        locationManager.removeUpdates(this);
+    }
 }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -573,9 +577,9 @@ protected void onPause(){
     private void setupViewPager(ViewPager viewPager) {
          adapter=new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new RestaurantFragment(),"Restaurants");
-        adapter.addFrag(new BarFragment(),"Bar");
+        adapter.addFrag(new BarFragment(),"Bars");
         adapter.addFrag(new GroceryFragment(),"Groceries");
-        adapter.addFrag(new GasFragment(),"Gas Station");
+        adapter.addFrag(new GasFragment(),"Gas Stations");
         viewPager.setAdapter(adapter);
 
     }

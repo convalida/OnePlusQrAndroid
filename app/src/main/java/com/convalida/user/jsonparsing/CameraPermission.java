@@ -1,8 +1,12 @@
 package com.convalida.user.jsonparsing;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,8 +34,15 @@ public class CameraPermission extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
         if(requestCode==5){
-            Intent intent=new Intent(CameraPermission.this,ScannerActivity.class);
-            startActivity(intent);
+           // if(Manifest.permission.CAMERA.equals(PackageManager.PERMISSION_GRANTED)) {
+            if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED){
+                Intent intent = new Intent(CameraPermission.this, ScannerActivity.class);
+                startActivity(intent);
+            }
+            else{
+                Intent intent=new Intent(CameraPermission.this,CameraPermission.class);
+                startActivity(intent);
+            }
            // EditProfile.
             //call launchScanner EditProfile
         }

@@ -79,9 +79,7 @@ public class OnClickRestaurant extends AppCompatActivity implements BaseSliderVi
     ArrayList<HashMap<String,String>> data;
     Button orderBtn;
     ImageButton navigateBtn,callBtn,menuBtn,timingBtn;
-    String loginurlHello="http://demo.oneplusrewards.com/app/api.asmx/UserDataByPhone";
-    final String appid="123456789";
-   private static String url="http://demo.oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
+
     TextView textViewTime,rest_name,temp;
     TextView rewardName,rewardItem,points;
     private static final String TAG="OnClickRestaurant";
@@ -106,7 +104,7 @@ public class OnClickRestaurant extends AppCompatActivity implements BaseSliderVi
 
 
             new AlertDialog.Builder(OnClickRestaurant.this)
-                    .setTitle("Internet connection is required")
+                    .setMessage("Internet connection is required")
                     .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -172,43 +170,98 @@ else{
         navigateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                double lt = 0;
-                double ln = 0;
-                lt = Double.parseDouble(lat);
-                ln = Double.parseDouble(lng);
-                Intent intent = new Intent(OnClickRestaurant.this, MapsActivity.class);
-                intent.putExtra("lat", lt);
-                intent.putExtra("lon", ln);
-                startActivity(intent);
+                if(!isNetworkAvailable()){
+                    new AlertDialog.Builder(OnClickRestaurant.this)
+                            .setMessage("Internet connection is required to view our location on map")
+                            .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = getIntent();
+                                    //  finish();
+                                    startActivity(intent);
+                                    // finish();
+                                }
+                            })
+                            .setCancelable(true)
+                            .create()
+                            .show();
+                }
+                else {
+                    double lt = 0;
+                    double ln = 0;
+                    lt = Double.parseDouble(lat);
+                    ln = Double.parseDouble(lng);
+                    Intent intent = new Intent(OnClickRestaurant.this, MapsActivity.class);
+                    intent.putExtra("lat", lt);
+                    intent.putExtra("lon", ln);
+                    startActivity(intent);
+                }
             }
         });
+
+
 
         menuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (menu.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Sorry, no menu for now", Toast.LENGTH_LONG).show();
-                } else {
-                    Intent intent = new Intent(OnClickRestaurant.this, MenuActivity.class);
-                    intent.putExtra("MenuLink", menu);
-                    startActivity(intent);
-                    //Intent intent = new Intent(Intent.ACTION_VIEW);
-                    //  intent.setData(Uri.parse(menu));
-                    // startActivity(intent);
+                if(!isNetworkAvailable()){
+                    new AlertDialog.Builder(OnClickRestaurant.this)
+                            .setMessage("Internet connection is required to view the menu")
+                            .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = getIntent();
+                                    //  finish();
+                                    startActivity(intent);
+                                    // finish();
+                                }
+                            })
+                            .setCancelable(true)
+                            .create()
+                            .show();
+                }
+                else {
+                    if (menu.length() == 0) {
+                        Toast.makeText(getApplicationContext(), "Sorry, no menu for now", Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(OnClickRestaurant.this, MenuActivity.class);
+                        intent.putExtra("MenuLink", menu);
+                        startActivity(intent);
+                        //Intent intent = new Intent(Intent.ACTION_VIEW);
+                        //  intent.setData(Uri.parse(menu));
+                        // startActivity(intent);
+                    }
                 }
             }
         });
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (order.length() == 0) {
-                    Toast.makeText(getApplicationContext(), "Sorry, you cannot order currently", Toast.LENGTH_LONG).show();
-                } else {
-                    Intent intent = new Intent(OnClickRestaurant.this, OrderActivity.class);
-                    intent.putExtra("OrderLink", order);
-                    startActivity(intent);
+                if(!isNetworkAvailable()){
+                    new AlertDialog.Builder(OnClickRestaurant.this)
+                            .setMessage("Internet connection is required to place your order")
+                            .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = getIntent();
+                                    //  finish();
+                                    startActivity(intent);
+                                    // finish();
+                                }
+                            })
+                            .setCancelable(true)
+                            .create()
+                            .show();
                 }
-
+                else {
+                    if (order.length() == 0) {
+                        Toast.makeText(getApplicationContext(), "Sorry, you cannot order currently", Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(OnClickRestaurant.this, OrderActivity.class);
+                        intent.putExtra("OrderLink", order);
+                        startActivity(intent);
+                    }
+                }
 
             }
         });
@@ -259,6 +312,9 @@ else{
     }
 
     }
+
+
+
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager= (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);

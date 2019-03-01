@@ -79,12 +79,23 @@ public class Login extends AppCompatActivity {
       //  dynamicToolbarColor();
         toolbarTextAppearance();
 
+
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!validateMobile()) {
+                    return;
+                }
+                if (mobile.length() < 10) {
+                    Toast.makeText(getApplicationContext(), "Please enter your complete contact no.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if (!isNetworkAvailable()) {
                     new AlertDialog.Builder(Login.this)
-                            .setTitle("Internet connection is required")
+                            .setMessage("Internet connection is required")
                             .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -99,13 +110,6 @@ public class Login extends AppCompatActivity {
                             .show();
                 }
                 else {
-                    if (!validateMobile()) {
-                        return;
-                    }
-                    if (mobile.length() < 10) {
-                        Toast.makeText(getApplicationContext(), "Please enter your complete contact no.", Toast.LENGTH_LONG).show();
-                        return;
-                    }
                     String url = "http://demo.oneplusrewards.com/app/api.asmx/UserDataByPhone";
                     final String appid = "123456789";
                     //   String userId;

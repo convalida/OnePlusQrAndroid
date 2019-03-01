@@ -1,6 +1,8 @@
 package com.convalida.user.jsonparsing;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +31,18 @@ public class MenuActivity extends AppCompatActivity {
         webView.getSettings().setLoadsImagesAutomatically(true);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        final ProgressDialog progressDialog= ProgressDialog.show(MenuActivity.this,"","Please wait...");
+        webView.setWebViewClient(new WebViewClient(){
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl){
+                Toast.makeText(getApplicationContext(),description,Toast.LENGTH_LONG).show();
+            }
+            public void onPageStarted(WebView view, String url, Bitmap favicon){
+                progressDialog.show();
+            }
+            public void onPageFinished(WebView view, String url){
+                progressDialog.dismiss();
+            }
+        });
      //   if(savedInstanceState==null){
         webView.loadUrl(menu);
        // }

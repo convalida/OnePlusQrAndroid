@@ -76,7 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double longitude=getIntent().getDoubleExtra("lon",0);
         LatLng coordinates=new LatLng(latitude,longitude);
         mMap.addMarker(new MarkerOptions().position(coordinates).draggable(true));
-        CameraUpdate cameraUpdate=CameraUpdateFactory.newLatLngZoom(coordinates,22);
+        CameraUpdate cameraUpdate=CameraUpdateFactory.newLatLngZoom(coordinates,20);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
         mMap.animateCamera(cameraUpdate);
        //  mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
