@@ -52,64 +52,12 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sacnner);
-//        checkCameraPermission();
         zXingScannerView=new ZXingScannerView(this);
         setContentView(zXingScannerView);
         zXingScannerView.setResultHandler(this);
         zXingScannerView.startCamera();
     }
 
-/**    private boolean checkCameraPermission() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-                ActivityCompat.requestPermissions(ScannerActivity.this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
-
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, MY_PERMISSION_CAMERA);
-            }
-
-            return false;
-        }
-        else {
-            Intent intent=new Intent(ScannerActivity.this,ScannerActivity.class);
-            startActivity(intent);
-            return true;
-        }
-
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-        switch (requestCode){
-            case MY_PERMISSION_CAMERA:
-                for(int i=0, len=permissions.length; i<len; i++){
-                    String permission=permissions[i];
-                    if(grantResults[i]!=PackageManager.PERMISSION_GRANTED){
-                    boolean showRationale=shouldShowRequestPermissionRationale(permission);
-                    if(!showRationale){
-                        Intent intent=new Intent(ScannerActivity.this,CameraPermission.class);
-                        startActivity(intent);
-                    }
-                }
-              /**  else if(grantResults[i]==PackageManager.PERMISSION_GRANTED){
-                   // Intent intent=getIntent();
-                        Intent intent=new Intent(ScannerActivity.this,ScannerActivity.class);
-                    startActivity(intent);
-                    }**/
-            /**  else {
-                        startActivity(getIntent());
-                    }**/
-       /**     else{
-                Intent intent=new Intent(ScannerActivity.this,ScannerActivity.class);
-                startActivity(intent);
-                    }
-            /**  else{
-                  finish();
-                  startActivity(getIntent());
-                    }**/
-          /**      }
-        }
-    }**/
 
     public void onPause(){
         super.onPause();
@@ -160,7 +108,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     }
 
     private void registerPoints(final String userId) {
-        String url="http://demo.oneplusrewards.com/app/api.asmx/AddRewardByApp";
+        String url="http://oneplusrewards.com/app/api.asmx/AddRewardByApp";
         final StringRequest request= new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -253,7 +201,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
             SharedPreferences sharedPreferences=getApplicationContext().getSharedPreferences("saveNumber",MODE_PRIVATE);
             stringNum=sharedPreferences.getString("Number","");
             Log.e(TAG,"Contact no. user is "+stringNum);
-            url="http://demo.oneplusrewards.com/app/api.asmx/UserDataByPhone?Appid=123456789&CustomerPhone="+stringNum;
+            url="http://oneplusrewards.com/app/api.asmx/UserDataByPhone?Appid=123456789&CustomerPhone="+stringNum;
         }
         @Override
         protected String doInBackground(Void... voids) {

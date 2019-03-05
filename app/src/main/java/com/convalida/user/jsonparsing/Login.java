@@ -110,7 +110,7 @@ public class Login extends AppCompatActivity {
                             .show();
                 }
                 else {
-                    String url = "http://demo.oneplusrewards.com/app/api.asmx/UserDataByPhone";
+                    String url = "http://oneplusrewards.com/app/api.asmx/UserDataByPhone";
                     final String appid = "123456789";
                     //   String userId;
 

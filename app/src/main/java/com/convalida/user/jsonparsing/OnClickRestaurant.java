@@ -708,7 +708,7 @@ else{
            //  uid=data.getString("userId","");
             Log.e(TAG,"Contact no. is "+str);
             //Log.e(TAG,"user id is "+uid);
-            url="http://demo.oneplusrewards.com/app/api.asmx/UserDataByPhone?Appid=123456789&CustomerPhone="+str;
+            url="http://oneplusrewards.com/app/api.asmx/UserDataByPhone?Appid=123456789&CustomerPhone="+str;
         }
         @Override
         protected String doInBackground(Void... params) {
@@ -748,7 +748,7 @@ else{
         SharedPreferences data=getApplicationContext().getSharedPreferences("saveUserId",MODE_PRIVATE);
         uid=data.getString("userId","");
         Log.e(TAG,"User id is "+uid);
-        urlPoint="http://demo.oneplusrewards.com/app/api.asmx/UserPointByPhone?Appid=123456789&MID="+uid;
+        urlPoint="http://oneplusrewards.com/app/api.asmx/UserPointByPhone?Appid=123456789&MID="+uid;
         }
         @Override
         protected String doInBackground(Void... voids) {

@@ -65,7 +65,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder>  {
             holder.name.setText(result.get(MainActivity.NAME));
             holder.add1.setText(result.get(MainActivity.ADDRESS1));
             holder.add2.setText(result.get(MainActivity.ADDRESS2));
-            holder.add3.setText(result.get(MainActivity.ADDRESS3));
+            holder.add3.setText(result.get(MainActivity.ADDRESS3)+" ");
             holder.zipCode.setText(result.get(MainActivity.ZIP));
             holder.dist.setText(result.get(MainActivity.DISTANCE) + " miles");
             Picasso.with(context).load(Uri.parse(result.get(MainActivity.LOGO))).into(holder.logoImg);

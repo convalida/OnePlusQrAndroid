@@ -165,26 +165,7 @@ public class RestaurantFragment extends Fragment implements SearchView.OnQueryTe
  //       new PointsTask().execute();
   //      if(getUserVisibleHint()) {
       //  if(!isViewShown) {
-      /**  if(!isNetworkAvailable()){
-            new AlertDialog.Builder(context)
-                    .setTitle("Internet connection is required")
-                    .setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = getActivity().getIntent();
-                            //  finish();
-                            startActivity(intent);
-                            // finish();
-                        }
-                    })
-                    .setCancelable(false)
-                    .create()
-                    .show();
-
-        }
-        else {**/
             new GetDataRestuarant().execute();
-       // }
           //  checkForFirstFragment();
         //}
     //    }
@@ -274,11 +255,6 @@ public void onPause(){
         Log.e(TAG,"onPause of RestaurantFragment called");
 }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null;
-    }
 
 
 
@@ -400,8 +376,8 @@ public void onPause(){
             SharedPreferences preferences=context.getSharedPreferences("saveUserId",Context.MODE_PRIVATE);
             uid=preferences.getString("userId","");
             Log.e(TAG, "User id is "+uid);
-             urlMainList="http://demo.oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
-            urlPointsList="http://demo.oneplusrewards.com/app/api.asmx/UserPointByPhone?Appid=123456789&MID="+uid;
+             urlMainList="http://oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
+            urlPointsList="http://oneplusrewards.com/app/api.asmx/UserPointByPhone?Appid=123456789&MID="+uid;
         }
 
         @Override
@@ -442,8 +418,8 @@ public void onPause(){
             test2List=new ArrayList<>();
             float rangeRound;
 
-            urlMainList="http://demo.oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
-            urlPointsList="http://demo.oneplusrewards.com/app/api.asmx/UserPointByPhone?Appid=123456789&MID="+uid;
+            urlMainList="http://oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
+            urlPointsList="http://oneplusrewards.com/app/api.asmx/UserPointByPhone?Appid=123456789&MID="+uid;
             HttpHandler pointsHandler=new HttpHandler();
             arrList=new ArrayList<>();
             String jsonPoints=pointsHandler.makeServiceCall(urlPointsList);
@@ -763,13 +739,13 @@ public void onPause(){
         loc1.setLatitude(lat);
         loc1.setLongitude(lon);
         Location loc2=new Location("point B");
-     //   loc2.setLatitude(32.500000);//Kathleen, GA 31047
-     //   loc2.setLongitude(-83.600000);
+    //    loc2.setLatitude(32.500000);//Kathleen, GA 31047
+    //    loc2.setLongitude(-83.600000);
 
       //  loc2.setLatitude(35.0546614);// sitar
-      //  loc2.setLongitude(-85.3093487);
+      //    loc2.setLongitude(-85.3093487);
 
-    //    loc2.setLatitude(32.621719);
+    //    loc2.setLatitude(32.621719);// bombay grill
     //    loc2.setLongitude(-85.455593);
 
   //      loc2.setLatitude(28.518153);//iOS Test

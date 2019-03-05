@@ -51,7 +51,7 @@ public class BarFragment extends Fragment implements SearchView.OnQueryTextListe
     static boolean isUserActiveBar;
     String bussType;
     static int distanceInt;
-    private static String url="http://demo.oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
+    private static String url="http://oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
     private ArrayList<HashMap<String,String>> barList;
     static ArrayList<HashMap<String,String>> rangeBarList;
     ArrayList<HashMap<String,String>> arrList;
@@ -234,8 +234,8 @@ public class BarFragment extends Fragment implements SearchView.OnQueryTextListe
             SharedPreferences preferences=context.getSharedPreferences("saveUserId",Context.MODE_PRIVATE);
             uid=preferences.getString("userId","");
             Log.e(TAG, "User id is "+uid);
-            urlMain="http://demo.oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
-            urlPoints="http://demo.oneplusrewards.com/app/api.asmx/UserPointByPhone?Appid=123456789&MID="+uid;
+            urlMain="http://oneplusrewards.com/app/api.asmx/GetBusinessData?Appid=123456789";
+            urlPoints="http://oneplusrewards.com/app/api.asmx/UserPointByPhone?Appid=123456789&MID="+uid;
         }
 
         @Override

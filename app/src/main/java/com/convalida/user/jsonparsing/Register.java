@@ -225,7 +225,7 @@ public class Register extends AppCompatActivity {
             if (!validateMobile()) {
                 return;
             }
-            contact = etMobile.getText().toString();
+            contact = etMobile.getText().toString().trim();
             if (contact.length() < 10) {
                 Toast.makeText(getApplicationContext(), "Please enter your complete contact no.", Toast.LENGTH_LONG).show();
                 return;
@@ -262,7 +262,7 @@ public class Register extends AppCompatActivity {
              String mail="N";
              String sms="N";
              new ExecuteTask().execute(appid,mobile,email,fname,lname,mail,sms);**/
-            String url = "http://demo.oneplusrewards.com/app/api.asmx/RegisterUser";
+            String url = "http://oneplusrewards.com/app/api.asmx/RegisterUser";
             //   String url="http://localhost:10945/App/Api.asmx/RegisterUser";
             StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override

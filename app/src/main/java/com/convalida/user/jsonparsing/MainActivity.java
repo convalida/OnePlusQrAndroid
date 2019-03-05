@@ -644,7 +644,7 @@ protected void onPause(){
             Log.e(TAG, "Current Longitude is: " + currLongitude);
         }
         else{
-            Toast.makeText(getApplicationContext(),"Waiting for current location",Toast.LENGTH_LONG).show();
+        //    Toast.makeText(getApplicationContext(),"Waiting for current location",Toast.LENGTH_LONG).show();
         }
     }
     @Override

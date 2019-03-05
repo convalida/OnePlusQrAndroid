@@ -200,7 +200,7 @@ private Toolbar toolbar;
         } else {
             //  mob=etmobileNum.getText().toString();
             // String urlUpdate="http://demo.oneplusrewards.com/app/api.asmx/EditProfile?CustomerPhone="+etmobileNum.getText().toString();
-            String urlUpdate = "http://demo.oneplusrewards.com/app/api.asmx/EditProfile";
+            String urlUpdate = "http://oneplusrewards.com/app/api.asmx/EditProfile";
 
             StringRequest request = new StringRequest(Request.Method.POST, urlUpdate, new Response.Listener<String>() {
                 @Override
@@ -358,7 +358,7 @@ private Toolbar toolbar;
 
 
     private class GetCustomerDetails extends AsyncTask<Void, Void, Void> {
-        String url="http://demo.oneplusrewards.com/app/api.asmx/UserDataByPhone?Appid=123456789&CustomerPhone="+str;
+        String url="http://oneplusrewards.com/app/api.asmx/UserDataByPhone?Appid=123456789&CustomerPhone="+str;
         String firName,lasName,mail,mobile;
 
         protected void onPreExecute(){

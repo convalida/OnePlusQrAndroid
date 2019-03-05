@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/zp"
                     android:layout_toRightOf="@id/addressC"
-                    android:layout_marginLeft="5dp"
+                    android:layout_toEndOf="@id/addressC"
                     android:layout_alignBaseline="@id/addressC"
                     android:textSize="14sp"/>
 
